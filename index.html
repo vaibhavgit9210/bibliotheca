@@ -3,836 +3,137 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>GATE 2026 CS1 — Mock Test</title>
-<meta name="description" content="Full-length GATE 2026 Computer Science (CS1) mock test with official answer key and GATE marking scheme.">
+<title>Bibliotheca — GATE mock tests</title>
+<meta name="description" content="Full-length GATE 2026 Computer Science mock tests with official answer keys and the real GATE marking scheme.">
 <style>
 :root{
   --bg:#eef1f6; --panel:#fff; --ink:#12171f; --muted:#5d6675; --line:#d5dae3;
   --blue:#1b4b96; --blue-d:#14396f; --accent:#0b7285;
-  --green:#12805c; --red:#c0392b; --purple:#6b3fa0; --grey:#9aa3b0;
+  --green:#12805c; --red:#c0392b; --amber:#a16207;
   --shadow:0 1px 2px rgba(16,24,40,.06),0 4px 14px rgba(16,24,40,.07);
 }
 *{box-sizing:border-box}
-html,body{margin:0;height:100%}
+html,body{margin:0}
 body{
-  background:var(--bg); color:var(--ink);
+  background:var(--bg);color:var(--ink);
   font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
   -webkit-text-size-adjust:100%;
 }
-button{font:inherit;color:inherit;cursor:pointer}
-.hide{display:none !important}
-
-/* ---------- start screen ---------- */
-#start{max-width:820px;margin:0 auto;padding:44px 20px 80px}
+.wrap{max-width:820px;margin:0 auto;padding:44px 20px 90px}
 .brand{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:700}
-h1{font-size:30px;line-height:1.2;margin:.35em 0 .2em;letter-spacing:-.01em}
-.sub{color:var(--muted);margin:0 0 26px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px 24px;box-shadow:var(--shadow);margin-bottom:18px}
-.card h2{font-size:15px;margin:0 0 14px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+h1{font-size:31px;line-height:1.2;margin:.35em 0 .2em;letter-spacing:-.015em}
+.sub{color:var(--muted);margin:0 0 30px;max-width:62ch}
+h2.sec{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:34px 0 12px;font-weight:700}
+
+a.paper{
+  display:block;text-decoration:none;color:inherit;background:var(--panel);
+  border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:12px;
+  box-shadow:var(--shadow);transition:border-color .15s,transform .15s
+}
+a.paper:hover{border-color:var(--blue);transform:translateY(-1px)}
+.ptop{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.pname{font-size:18px;font-weight:700;letter-spacing:-.01em}
+.psess{font-size:12px;color:var(--muted)}
+.badge{
+  margin-left:auto;font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  padding:4px 11px;border-radius:999px;background:#eef1f6;color:var(--muted);white-space:nowrap
+}
+.badge.done{background:#e4f5ee;color:var(--green)}
+.badge.live{background:#fef6e7;color:var(--amber)}
+.pmeta{color:var(--muted);font-size:13.5px;margin-top:8px}
+.pmeta b{color:var(--ink);font-variant-numeric:tabular-nums}
+.bar{height:6px;border-radius:999px;background:#e7ebf1;margin-top:12px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--green);border-radius:999px}
+
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:var(--shadow)}
 table.scheme{width:100%;border-collapse:collapse;font-size:14px}
 table.scheme th,table.scheme td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left}
-table.scheme th{font-weight:600;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+table.scheme th{font-weight:600;color:var(--muted);font-size:11.5px;text-transform:uppercase;letter-spacing:.05em}
+table.scheme tr:last-child td{border-bottom:0}
 table.scheme td:first-child{font-weight:600}
-.neg{color:var(--red);font-variant-numeric:tabular-nums}
-.pos{color:var(--green);font-variant-numeric:tabular-nums}
-.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:14px;margin:0}
-.fact{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
-.fact b{display:block;font-size:22px;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
-.fact span{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
-ul.notes{margin:0;padding-left:20px;color:var(--muted);font-size:14px}
-ul.notes li{margin:.4em 0}
+.pos{color:var(--green)} .neg{color:var(--red)}
+ul.notes{margin:12px 0 0;padding-left:20px;color:var(--muted);font-size:13.5px}
+ul.notes li{margin:.35em 0}
 ul.notes b{color:var(--ink)}
-.btn{
-  border:0;border-radius:10px;padding:13px 24px;font-weight:650;font-size:15px;
-  background:var(--blue);color:#fff;box-shadow:var(--shadow);transition:background .15s
-}
-.btn:hover{background:var(--blue-d)}
-.btn.ghost{background:var(--panel);color:var(--ink);border:1px solid var(--line)}
-.btn.ghost:hover{background:#f4f6fa}
-.btn.warn{background:var(--red)}
-.btn.warn:hover{background:#a5301f}
-.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-#resumeNote{font-size:14px;color:var(--muted)}
-
-/* ---------- exam shell ---------- */
-#exam{height:100%;display:flex;flex-direction:column}
-header{
-  background:var(--blue);color:#fff;display:flex;align-items:center;gap:16px;
-  padding:10px 16px;flex-wrap:wrap
-}
-header .ttl{font-weight:650;font-size:15px}
-header .spacer{flex:1}
-#clock{
-  font-variant-numeric:tabular-nums;font-weight:700;font-size:17px;
-  background:rgba(255,255,255,.14);padding:6px 14px;border-radius:8px;letter-spacing:.02em
-}
-#clock.low{background:var(--red)}
-.tabs{display:flex;gap:6px;background:#dde3ec;padding:6px 16px;border-bottom:1px solid var(--line);flex-wrap:wrap}
-.tab{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:6px 14px;font-size:13px;font-weight:600;color:var(--muted)}
-.tab[aria-selected=true]{background:var(--blue);color:#fff;border-color:var(--blue)}
-
-.body{flex:1;display:flex;min-height:0}
-main{flex:1;display:flex;flex-direction:column;min-width:0;background:var(--panel)}
-.qmeta{display:flex;align-items:center;gap:10px;padding:12px 20px;border-bottom:1px solid var(--line);flex-wrap:wrap}
-.qno{font-weight:700;font-size:16px}
-.pill{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid var(--line);color:var(--muted);background:#f4f6fa}
-.pill.t-MCQ{color:#1b4b96;border-color:#b9cbe8;background:#eaf1fb}
-.pill.t-MSQ{color:#6b3fa0;border-color:#d3c2ea;background:#f3edfc}
-.pill.t-NAT{color:#0b7285;border-color:#a9d8de;background:#e7f6f8}
-.marks{margin-left:auto;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
-
-.qscroll{flex:1;overflow:auto;padding:18px 20px 8px;-webkit-overflow-scrolling:touch}
-#qimg{max-width:100%;display:block;margin:0 auto;border:1px solid var(--line);border-radius:8px;background:#fff}
-.imgwrap{max-width:900px;margin:0 auto}
-.loading{color:var(--muted);text-align:center;padding:40px 0;font-size:14px}
-
-.answer{padding:14px 20px;border-top:1px solid var(--line);background:#fbfcfe}
-.answer h3{margin:0 0 10px;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
-.opts{display:flex;gap:10px;flex-wrap:wrap}
-.opt{
-  display:flex;align-items:center;justify-content:center;min-width:58px;height:44px;padding:0 16px;
-  border:1.5px solid var(--line);border-radius:10px;background:var(--panel);font-weight:650;
-  transition:all .12s
-}
-.opt:hover{border-color:var(--blue);background:#f0f5fd}
-.opt[aria-pressed=true]{background:var(--blue);border-color:var(--blue);color:#fff}
-.natwrap{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-#natInput{
-  font:600 17px/1 ui-monospace,SFMono-Regular,Menlo,monospace;padding:12px 14px;width:210px;
-  border:1.5px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink)
-}
-#natInput:focus{outline:0;border-color:var(--blue)}
-.keypad{display:grid;grid-template-columns:repeat(5,44px);gap:6px}
-.keypad button{height:38px;border:1px solid var(--line);border-radius:8px;background:var(--panel);font-weight:600;font-size:14px}
-.keypad button:hover{background:#eef3fb;border-color:var(--blue)}
-.hint{font-size:12.5px;color:var(--muted);margin:8px 0 0}
-
-footer.actions{display:flex;gap:10px;padding:12px 20px;border-top:1px solid var(--line);background:var(--panel);flex-wrap:wrap}
-footer.actions .spacer{flex:1}
-
-/* ---------- palette ---------- */
-aside{
-  width:290px;border-left:1px solid var(--line);background:#f7f9fc;
-  display:flex;flex-direction:column;min-height:0
-}
-.legend{padding:12px 14px;border-bottom:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr;gap:7px;font-size:11.5px;color:var(--muted)}
-.legend div{display:flex;align-items:center;gap:6px}
-.chip{width:15px;height:15px;border-radius:4px;flex:none;border:1px solid rgba(0,0,0,.12)}
-.c-nv{background:#e3e7ee} .c-na{background:var(--red)} .c-an{background:var(--green)}
-.c-mk{background:var(--purple)} .c-am{background:var(--purple);box-shadow:inset -4px -4px 0 -1px var(--green)}
-.palscroll{flex:1;overflow:auto;padding:12px 14px}
-.palhead{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:6px 0 8px;font-weight:700}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(40px,1fr));gap:7px}
-.pbtn{
-  height:38px;border-radius:8px;border:1px solid var(--line);background:#e3e7ee;color:#2a3140;
-  font-weight:650;font-size:13px;font-variant-numeric:tabular-nums;position:relative
-}
-.pbtn.na{background:var(--red);color:#fff;border-color:var(--red)}
-.pbtn.an{background:var(--green);color:#fff;border-color:var(--green)}
-.pbtn.mk,.pbtn.am{background:var(--purple);color:#fff;border-color:var(--purple)}
-.pbtn.am::after{content:"";position:absolute;right:3px;bottom:3px;width:9px;height:9px;border-radius:50%;background:var(--green);border:1.5px solid #fff}
-.pbtn.cur{outline:3px solid var(--blue);outline-offset:1px}
-.palfoot{padding:12px 14px;border-top:1px solid var(--line);display:flex;gap:10px}
-.palfoot .btn{flex:1;padding:11px 10px}
-#palToggle{display:none}
-
-/* ---------- results ---------- */
-#result{max-width:960px;margin:0 auto;padding:36px 20px 90px}
-.scorecard{
-  background:linear-gradient(140deg,var(--blue),#2d6fc4);color:#fff;border-radius:16px;
-  padding:28px 30px;box-shadow:var(--shadow);margin-bottom:20px
-}
-.scorecard .big{font-size:54px;font-weight:750;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
-.scorecard .of{opacity:.75;font-size:20px;font-weight:600}
-.scorecard .lbl{font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.8;margin-bottom:8px}
-.scorecard .meta{display:flex;gap:26px;flex-wrap:wrap;margin-top:18px;font-size:13.5px}
-.scorecard .meta div span{display:block;opacity:.75;font-size:11px;text-transform:uppercase;letter-spacing:.07em}
-.scorecard .meta div b{font-size:17px;font-variant-numeric:tabular-nums}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:20px}
-.stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
-.stat b{display:block;font-size:24px;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
-.stat span{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
-.stat.g b{color:var(--green)} .stat.r b{color:var(--red)} .stat.m b{color:var(--muted)}
-table.brk{width:100%;border-collapse:collapse;font-size:14px}
-table.brk th,table.brk td{padding:10px;border-bottom:1px solid var(--line);text-align:right;font-variant-numeric:tabular-nums}
-table.brk th:first-child,table.brk td:first-child{text-align:left;font-weight:600}
-table.brk th{font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600}
-table.brk tfoot td{font-weight:700;border-top:2px solid var(--line);border-bottom:0}
-.filters{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}
-.filters button{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:7px 15px;font-size:13px;font-weight:600;color:var(--muted)}
-.filters button[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
-.rev{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin-bottom:10px;overflow:hidden;box-shadow:var(--shadow)}
-.rev summary{
-  padding:13px 16px;cursor:pointer;display:flex;align-items:center;gap:12px;flex-wrap:wrap;
-  list-style:none;font-size:14px
-}
-.rev summary::-webkit-details-marker{display:none}
-.rev summary::before{content:"▸";color:var(--muted);font-size:12px;transition:transform .15s}
-.rev[open] summary::before{transform:rotate(90deg)}
-.rev .rq{font-weight:700;min-width:46px}
-.rev .verdict{font-weight:700;font-size:12px;letter-spacing:.05em;text-transform:uppercase;padding:3px 10px;border-radius:999px}
-.v-correct{background:#e4f5ee;color:var(--green)}
-.v-wrong{background:#fdecea;color:var(--red)}
-.v-skip{background:#eef1f6;color:var(--muted)}
-.rev .yours{color:var(--muted);font-size:13px}
-.rev .yours b{color:var(--ink);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
-.rev .got{margin-left:auto;font-weight:700;font-variant-numeric:tabular-nums}
-.rev .panel{padding:0 16px 16px;border-top:1px solid var(--line)}
-.rev .panel img{max-width:100%;display:block;margin:14px auto 0;border:1px solid var(--line);border-radius:8px}
-h2.sec{font-size:13px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:30px 0 12px}
-
-/* ---------- modal ---------- */
-.overlay{position:fixed;inset:0;background:rgba(12,18,28,.55);display:flex;align-items:center;justify-content:center;padding:20px;z-index:50}
-.modal{background:var(--panel);border-radius:16px;max-width:460px;width:100%;padding:26px 28px;box-shadow:0 20px 60px rgba(0,0,0,.28)}
-.modal h3{margin:0 0 10px;font-size:19px}
-.modal p{color:var(--muted);margin:0 0 8px;font-size:14px}
-.modal .mstats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0 20px;font-size:13.5px}
-.modal .mstats div{display:flex;justify-content:space-between;background:#f4f6fa;border-radius:8px;padding:8px 12px}
-.modal .mstats b{font-variant-numeric:tabular-nums}
-
-@media (max-width:860px){
-  aside{
-    position:fixed;inset:0 0 0 auto;width:min(320px,86vw);z-index:40;
-    transform:translateX(100%);transition:transform .22s ease;box-shadow:-8px 0 30px rgba(0,0,0,.18)
-  }
-  aside.open{transform:none}
-  #palToggle{display:inline-flex}
-  header{padding:9px 12px;gap:10px}
-  header .ttl{font-size:13px}
-  .qscroll{padding:14px 12px 6px}
-  .answer,footer.actions,.qmeta{padding-left:12px;padding-right:12px}
-  #start,#result{padding-top:26px}
-  h1{font-size:24px}
-  .scorecard{padding:22px 20px}
-  .scorecard .big{font-size:44px}
-}
+.foot{color:var(--muted);font-size:12.5px;margin-top:30px}
+.foot a{color:var(--accent)}
+@media (max-width:600px){ .wrap{padding-top:28px} h1{font-size:25px} .badge{margin-left:0} }
 </style>
 </head>
 <body>
+<div class="wrap">
+  <div class="brand">Bibliotheca</div>
+  <h1>GATE 2026 mock tests</h1>
+  <p class="sub">Full-length papers rendered straight from the official IIT Guwahati PDFs, graded against the published answer key with the real GATE marking scheme.</p>
 
-<!-- ================= START ================= -->
-<section id="start">
-  <div class="brand">Bibliotheca · Mock Test</div>
-  <h1>GATE 2026 — Computer Science &amp; IT (CS1)</h1>
-  <p class="sub">The full official paper, Session 3. Answers are graded against the official IIT Guwahati answer key using the real GATE marking scheme.</p>
+  <h2 class="sec">Computer Science &amp; IT</h2>
+  <div id="papers"></div>
 
-  <div class="facts" style="margin-bottom:18px">
-    <div class="fact"><b>65</b><span>Questions</span></div>
-    <div class="fact"><b>100</b><span>Marks</span></div>
-    <div class="fact"><b>180</b><span>Minutes</span></div>
-    <div class="fact"><b>3</b><span>Sections</span></div>
-  </div>
-
+  <h2 class="sec">Marking scheme</h2>
   <div class="card">
-    <h2>Marking scheme</h2>
     <table class="scheme">
       <thead><tr><th>Type</th><th>Correct</th><th>Wrong</th><th>Unattempted</th></tr></thead>
       <tbody>
         <tr><td>MCQ · 1 mark</td><td class="pos">+1</td><td class="neg">−1/3</td><td>0</td></tr>
         <tr><td>MCQ · 2 marks</td><td class="pos">+2</td><td class="neg">−2/3</td><td>0</td></tr>
-        <tr><td>MSQ · 1 &amp; 2 marks</td><td class="pos">+1 / +2</td><td>0 <span style="color:var(--muted)">(no negative)</span></td><td>0</td></tr>
-        <tr><td>NAT · 1 &amp; 2 marks</td><td class="pos">+1 / +2</td><td>0 <span style="color:var(--muted)">(no negative)</span></td><td>0</td></tr>
+        <tr><td>MSQ · 1 &amp; 2 marks</td><td class="pos">+1 / +2</td><td>0</td><td>0</td></tr>
+        <tr><td>NAT · 1 &amp; 2 marks</td><td class="pos">+1 / +2</td><td>0</td><td>0</td></tr>
       </tbody>
     </table>
-    <ul class="notes" style="margin-top:14px">
-      <li><b>MSQ</b> has no partial credit — you must select <b>every</b> correct option and <b>no</b> incorrect one.</li>
-      <li><b>NAT</b> answers are typed in. Graded against the official accepted range (e.g. 4.24–4.26).</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <h2>How it works</h2>
     <ul class="notes">
-      <li>Questions are the original PDF renderings, so every figure, table and formula is exactly as it appeared in the exam.</li>
-      <li>Use <b>Save &amp; Next</b>, <b>Mark for Review</b> and the question palette, just like the real CBT interface.</li>
-      <li>Your progress is saved in this browser continuously — close the tab and resume where you left off.</li>
-      <li>The timer auto-submits at 00:00:00. You can submit early at any point.</li>
-      <li>Keyboard: <b>A–D</b> to choose, <b>←/→</b> to move, <b>Enter</b> to save &amp; next.</li>
+      <li><b>MSQ</b> is all-or-nothing — every correct option, no incorrect one, no partial credit.</li>
+      <li><b>NAT</b> is typed in and graded against the official accepted range.</li>
+      <li>Each paper is 65 questions / 100 marks in 180 minutes. Progress is saved per paper in this browser.</li>
     </ul>
   </div>
 
-  <div class="row">
-    <button class="btn" id="startBtn">Start test</button>
-    <button class="btn ghost hide" id="resumeBtn">Resume attempt</button>
-    <span id="resumeNote"></span>
-  </div>
-</section>
-
-<!-- ================= EXAM ================= -->
-<section id="exam" class="hide">
-  <header>
-    <span class="ttl">GATE 2026 CS1 — Mock Test</span>
-    <span class="spacer"></span>
-    <span id="clock">03:00:00</span>
-    <button class="btn ghost" id="palToggle" style="padding:8px 12px">Palette</button>
-  </header>
-  <nav class="tabs" id="tabs" role="tablist"></nav>
-
-  <div class="body">
-    <main>
-      <div class="qmeta">
-        <span class="qno" id="qno">Question 1</span>
-        <span class="pill" id="qtype">MCQ</span>
-        <span class="pill" id="qsec">GA</span>
-        <span class="marks" id="qmarks"></span>
-      </div>
-
-      <div class="qscroll" id="qscroll">
-        <div class="imgwrap">
-          <div class="loading" id="qloading">Loading question…</div>
-          <img id="qimg" alt="" hidden>
-        </div>
-      </div>
-
-      <div class="answer">
-        <h3 id="ansLabel">Select one option</h3>
-        <div class="opts" id="opts"></div>
-        <div class="natwrap hide" id="natwrap">
-          <input id="natInput" type="text" inputmode="decimal" autocomplete="off" placeholder="Type answer">
-          <div class="keypad" id="keypad"></div>
-        </div>
-        <p class="hint" id="hint"></p>
-      </div>
-
-      <footer class="actions">
-        <button class="btn ghost" id="clearBtn">Clear response</button>
-        <button class="btn ghost" id="markBtn">Mark for review &amp; next</button>
-        <span class="spacer"></span>
-        <button class="btn ghost" id="prevBtn">Previous</button>
-        <button class="btn" id="saveBtn">Save &amp; next</button>
-      </footer>
-    </main>
-
-    <aside id="aside">
-      <div class="legend">
-        <div><i class="chip c-nv"></i> Not visited</div>
-        <div><i class="chip c-na"></i> Not answered</div>
-        <div><i class="chip c-an"></i> Answered</div>
-        <div><i class="chip c-mk"></i> Marked</div>
-        <div style="grid-column:1/-1"><i class="chip c-am"></i> Answered &amp; marked for review</div>
-      </div>
-      <div class="palscroll" id="palscroll"></div>
-      <div class="palfoot">
-        <button class="btn warn" id="submitBtn">Submit test</button>
-      </div>
-    </aside>
-  </div>
-</section>
-
-<!-- ================= RESULT ================= -->
-<section id="result" class="hide"></section>
+  <p class="foot">Question content © IIT Guwahati, organizing institute for GATE 2026, reproduced for personal exam practice.
+  Sources: <a href="https://gate2026.iitg.ac.in/">gate2026.iitg.ac.in</a>.</p>
+</div>
 
 <script>
-const QDATA=[
-[1,"MCQ","GA",1,"B"],
-[2,"MCQ","GA",1,"C"],
-[3,"MCQ","GA",1,"C"],
-[4,"MCQ","GA",1,"D"],
-[5,"MCQ","GA",1,"C"],
-[6,"MCQ","GA",2,"B"],
-[7,"MCQ","GA",2,"D"],
-[8,"MCQ","GA",2,"A"],
-[9,"MCQ","GA",2,"A"],
-[10,"MCQ","GA",2,"C"],
-[11,"MCQ","CS",1,"B"],
-[12,"MCQ","CS",1,"A"],
-[13,"MCQ","CS",1,"A"],
-[14,"MCQ","CS",1,"B"],
-[15,"MCQ","CS",1,"D"],
-[16,"MCQ","CS",1,"B"],
-[17,"MCQ","CS",1,"A"],
-[18,"MCQ","CS",1,"D"],
-[19,"MSQ","CS",1,"ACD"],
-[20,"MSQ","CS",1,"BD"],
-[21,"MSQ","CS",1,"AC"],
-[22,"MSQ","CS",1,"BC"],
-[23,"MSQ","CS",1,"BC"],
-[24,"MSQ","CS",1,"C"],
-[25,"MSQ","CS",1,"ABC"],
-[26,"MSQ","CS",1,"BD"],
-[27,"MSQ","CS",1,"C"],
-[28,"MSQ","CS",1,"C"],
-[29,"MSQ","CS",1,"AC"],
-[30,"MSQ","CS",1,"CD"],
-[31,"MSQ","CS",1,"ABC"],
-[32,"NAT","CS",1,[3,3]],
-[33,"NAT","CS",1,[11,11]],
-[34,"NAT","CS",1,[9,9]],
-[35,"NAT","CS",1,[6,6]],
-[36,"MCQ","CS",2,"C"],
-[37,"MCQ","CS",2,"B"],
-[38,"MCQ","CS",2,"A"],
-[39,"MCQ","CS",2,"B"],
-[40,"MCQ","CS",2,"D"],
-[41,"MCQ","CS",2,"A"],
-[42,"MCQ","CS",2,"D"],
-[43,"MCQ","CS",2,"B"],
-[44,"MCQ","CS",2,"B"],
-[45,"MCQ","CS",2,"B"],
-[46,"MSQ","CS",2,"ACD"],
-[47,"MSQ","CS",2,"A"],
-[48,"MSQ","CS",2,"BD"],
-[49,"MSQ","CS",2,"AD"],
-[50,"MSQ","CS",2,"BD"],
-[51,"MSQ","CS",2,"C"],
-[52,"MSQ","CS",2,"BD"],
-[53,"MSQ","CS",2,"ABD"],
-[54,"MSQ","CS",2,"BC"],
-[55,"MSQ","CS",2,"BC"],
-[56,"MSQ","CS",2,"ABC"],
-[57,"NAT","CS",2,[34,34]],
-[58,"NAT","CS",2,[4.24,4.26]],
-[59,"NAT","CS",2,[77.3,77.3]],
-[60,"NAT","CS",2,[95,95]],
-[61,"NAT","CS",2,[65536,65536]],
-[62,"NAT","CS",2,[7,7]],
-[63,"NAT","CS",2,[4,4]],
-[64,"NAT","CS",2,[9.5,9.5]],
-[65,"NAT","CS",2,[6,6]]
+const PAPERS = [
+  {id:'cs1', name:'CS1', title:'Computer Science &amp; IT', session:3},
+  {id:'cs2', name:'CS2', title:'Computer Science &amp; IT', session:4},
 ];
-
-const Q = QDATA.map(([n,type,sec,marks,ans])=>({n,type,sec,marks,ans}));
 const TOTAL_SECONDS = 180*60;
-const KEY = 'gate2026-cs1-attempt-v1';
-const LETTERS = ['A','B','C','D'];
-
-const SECTIONS = [
-  {id:'GA',  label:'General Aptitude',        test:q=>q.sec==='GA'},
-  {id:'CS1', label:'Technical · 1 mark',      test:q=>q.sec==='CS'&&q.marks===1},
-  {id:'CS2', label:'Technical · 2 marks',     test:q=>q.sec==='CS'&&q.marks===2},
-];
-
-/* ---------------- state ---------------- */
-let S = null;
-
-function freshState(){
-  const st = {started:Date.now(), remaining:TOTAL_SECONDS, current:1, submitted:false, ans:{}, status:{}};
-  Q.forEach(q=>{ st.status[q.n]='nv'; st.ans[q.n]=null; });
-  return st;
-}
-function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
-function load(){
-  try{
-    const raw = localStorage.getItem(KEY);
-    if(!raw) return null;
-    const st = JSON.parse(raw);
-    if(!st || !st.status || typeof st.remaining!=='number') return null;
-    return st;
-  }catch(e){ return null; }
-}
-
-/* ---------------- grading ---------------- */
-function isAnswered(q, a){
-  if(a==null) return false;
-  if(q.type==='NAT') return String(a).trim()!=='';
-  if(q.type==='MSQ') return Array.isArray(a) && a.length>0;
-  return true;
-}
-function gradeOne(q, a){
-  // returns {verdict:'correct'|'wrong'|'skip', got:number, yours:string, key:string}
-  const keyStr = q.type==='NAT'
-    ? (q.ans[0]===q.ans[1] ? String(q.ans[0]) : q.ans[0]+' to '+q.ans[1])
-    : q.ans.split('').join(', ');
-
-  if(!isAnswered(q,a)) return {verdict:'skip', got:0, yours:'—', key:keyStr};
-
-  if(q.type==='NAT'){
-    const v = parseFloat(String(a).trim());
-    const yours = String(a).trim();
-    if(!isFinite(v)) return {verdict:'wrong', got:0, yours, key:keyStr};
-    // tiny epsilon guards float representation at the range edges
-    const ok = v >= q.ans[0]-1e-9 && v <= q.ans[1]+1e-9;
-    return {verdict: ok?'correct':'wrong', got: ok?q.marks:0, yours, key:keyStr};
-  }
-  if(q.type==='MSQ'){
-    const picked = [...a].sort();
-    const yours = picked.join(', ');
-    const ok = picked.join('') === q.ans.split('').sort().join('');
-    return {verdict: ok?'correct':'wrong', got: ok?q.marks:0, yours, key:keyStr};
-  }
-  // MCQ — negative marking: 1/3 of the question's marks
-  const ok = a === q.ans;
-  return {verdict: ok?'correct':'wrong', got: ok? q.marks : -(q.marks/3), yours: a, key:keyStr};
-}
-function gradeAll(){
-  const rows = Q.map(q=>({q, ...gradeOne(q, S.ans[q.n])}));
-  const total = rows.reduce((s,r)=>s+r.got,0);
-  return {rows, total};
-}
-
-/* ---------------- helpers ---------------- */
-const $ = id => document.getElementById(id);
 const pad2 = n => String(n).padStart(2,'0');
 const fmtClock = s => `${pad2(Math.floor(s/3600))}:${pad2(Math.floor(s/60)%60)}:${pad2(s%60)}`;
-const round2 = n => Math.round(n*100)/100;
-const fmtMark = n => (n>0?'+':'') + (Number.isInteger(n)? n : round2(n).toFixed(2));
 
-function sectionOf(q){ return SECTIONS.find(s=>s.test(q)).id; }
-
-/* ---------------- exam UI ---------------- */
-let timerId = null;
-
-function startExam(fresh){
-  S = fresh ? freshState() : (load() || freshState());
-  S.submitted = false;
-  $('start').classList.add('hide');
-  $('result').classList.add('hide');
-  $('exam').classList.remove('hide');
-  document.body.style.overflow='hidden';
-  buildTabs(); buildPalette(); renderQ(S.current);
-  tick(); clearInterval(timerId); timerId = setInterval(tick, 1000);
-  save();
+function attempt(id){
+  try{ return JSON.parse(localStorage.getItem('gate2026-'+id+'-attempt-v1')); }catch(e){ return null; }
 }
-
-function tick(){
-  if(S.submitted) return;
-  S.remaining = Math.max(0, S.remaining-1);
-  const c = $('clock');
-  c.textContent = fmtClock(S.remaining);
-  c.classList.toggle('low', S.remaining<=300);
-  if(S.remaining%5===0) save();
-  if(S.remaining===0){ clearInterval(timerId); doSubmit(true); }
-}
-
-function buildTabs(){
-  const t = $('tabs'); t.innerHTML='';
-  SECTIONS.forEach(sec=>{
-    const b=document.createElement('button');
-    b.className='tab'; b.type='button'; b.role='tab';
-    const list = Q.filter(sec.test);
-    b.textContent = `${sec.label} (${list.length})`;
-    b.onclick = ()=>{ renderQ(list[0].n); };
-    b.dataset.sec = sec.id;
-    t.appendChild(b);
-  });
-}
-function syncTabs(){
-  const cur = sectionOf(Q[S.current-1]);
-  [...$('tabs').children].forEach(b=> b.setAttribute('aria-selected', String(b.dataset.sec===cur)));
-}
-
-function buildPalette(){
-  const p = $('palscroll'); p.innerHTML='';
-  SECTIONS.forEach(sec=>{
-    const h=document.createElement('div'); h.className='palhead'; h.textContent=sec.label;
-    const g=document.createElement('div'); g.className='grid';
-    Q.filter(sec.test).forEach(q=>{
-      const b=document.createElement('button');
-      b.className='pbtn'; b.type='button'; b.textContent=q.n; b.dataset.n=q.n;
-      b.onclick=()=>{ renderQ(q.n); if(window.innerWidth<=860) $('aside').classList.remove('open'); };
-      g.appendChild(b);
-    });
-    p.appendChild(h); p.appendChild(g);
-  });
-  syncPalette();
-}
-function syncPalette(){
-  document.querySelectorAll('.pbtn').forEach(b=>{
-    const n=+b.dataset.n;
-    b.className = 'pbtn ' + S.status[n] + (n===S.current?' cur':'');
-  });
-}
-
-function renderQ(n){
-  if(n<1||n>65) return;
-  S.current = n;
-  const q = Q[n-1];
-  if(S.status[n]==='nv') S.status[n]='na';
-
-  $('qno').textContent = 'Question '+n;
-  const tp=$('qtype'); tp.textContent=q.type; tp.className='pill t-'+q.type;
-  $('qsec').textContent = q.sec==='GA' ? 'General Aptitude' : 'Computer Science';
-  const negTxt = q.type==='MCQ' ? `  ·  wrong: −${q.marks===1?'1/3':'2/3'}` : '  ·  no negative marking';
-  $('qmarks').textContent = `${q.marks} mark${q.marks>1?'s':''}${negTxt}`;
-
-  // image
-  const img=$('qimg'), ld=$('qloading');
-  img.hidden=true; ld.style.display='';
-  ld.textContent='Loading question…';
-  img.onload = ()=>{ img.hidden=false; ld.style.display='none'; };
-  img.onerror = ()=>{ ld.textContent='Could not load the question image (q/q'+pad2(n)+'.webp).'; };
-  img.alt = 'GATE 2026 CS1 question '+n;
-  img.src = 'q/q'+pad2(n)+'.webp';
-  $('qscroll').scrollTop = 0;
-
-  renderAnswer(q);
-  syncPalette(); syncTabs();
-  preload(n+1);
-  save();
-}
-function preload(n){ if(n>=1&&n<=65){ const i=new Image(); i.src='q/q'+pad2(n)+'.webp'; } }
-
-function renderAnswer(q){
-  const a = S.ans[q.n];
-  const opts=$('opts'), nat=$('natwrap');
-  if(q.type==='NAT'){
-    opts.classList.add('hide'); nat.classList.remove('hide');
-    $('ansLabel').textContent='Enter your answer';
-    $('natInput').value = a==null?'':a;
-    $('hint').textContent='Numeric answer — decimals allowed. No negative marking.';
-  } else {
-    opts.classList.remove('hide'); nat.classList.add('hide');
-    $('ansLabel').textContent = q.type==='MSQ' ? 'Select one or more options' : 'Select one option';
-    $('hint').textContent = q.type==='MSQ'
-      ? 'All correct options must be selected, with none incorrect. No partial credit, no negative marking.'
-      : 'Only one option is correct.';
-    opts.innerHTML='';
-    LETTERS.forEach(L=>{
-      const b=document.createElement('button');
-      b.className='opt'; b.type='button'; b.textContent=L;
-      const on = q.type==='MSQ' ? (Array.isArray(a)&&a.includes(L)) : a===L;
-      b.setAttribute('aria-pressed', String(on));
-      b.onclick=()=>pick(q,L);
-      opts.appendChild(b);
-    });
-  }
-}
-
-function pick(q,L){
-  if(q.type==='MSQ'){
-    const cur = Array.isArray(S.ans[q.n]) ? [...S.ans[q.n]] : [];
-    const i=cur.indexOf(L);
-    if(i>=0) cur.splice(i,1); else cur.push(L);
-    S.ans[q.n] = cur.length?cur.sort():null;
-  } else {
-    S.ans[q.n] = S.ans[q.n]===L ? null : L;
-  }
-  markStatus(q); renderAnswer(q); syncPalette(); save();
-}
-function markStatus(q){
-  const answered = isAnswered(q,S.ans[q.n]);
-  const marked = S.status[q.n]==='mk'||S.status[q.n]==='am';
-  S.status[q.n] = marked ? (answered?'am':'mk') : (answered?'an':'na');
-}
-function commitNat(){
-  const q=Q[S.current-1];
-  if(q.type!=='NAT') return;
-  const v=$('natInput').value.trim();
-  S.ans[q.n] = v===''?null:v;
-  markStatus(q); syncPalette(); save();
-}
-
-/* ---------------- actions ---------------- */
-$('startBtn').onclick = ()=>{
-  if(load() && !confirm('Start a new attempt? Your saved progress will be erased.')) return;
-  localStorage.removeItem(KEY); startExam(true);
-};
-$('resumeBtn').onclick = ()=> startExam(false);
-$('prevBtn').onclick = ()=>{ commitNat(); renderQ(S.current-1); };
-$('saveBtn').onclick = ()=>{ commitNat(); renderQ(Math.min(65,S.current+1)); };
-$('clearBtn').onclick = ()=>{
-  const q=Q[S.current-1];
-  S.ans[q.n]=null; $('natInput').value='';
-  markStatus(q); renderAnswer(q); syncPalette(); save();
-};
-$('markBtn').onclick = ()=>{
-  commitNat();
-  const q=Q[S.current-1];
-  S.status[q.n] = isAnswered(q,S.ans[q.n]) ? 'am' : 'mk';
-  syncPalette(); save();
-  renderQ(Math.min(65,S.current+1));
-};
-$('palToggle').onclick = ()=> $('aside').classList.toggle('open');
-$('natInput').addEventListener('input', commitNat);
-
-// NAT keypad
-(function(){
-  const k=$('keypad');
-  ['7','8','9','.','⌫','4','5','6','0','C','1','2','3','-',''].forEach(ch=>{
-    if(ch===''){ const s=document.createElement('span'); k.appendChild(s); return; }
-    const b=document.createElement('button'); b.type='button'; b.textContent=ch;
-    b.onclick=()=>{
-      const i=$('natInput');
-      if(ch==='⌫') i.value=i.value.slice(0,-1);
-      else if(ch==='C') i.value='';
-      else i.value+=ch;
-      commitNat();
+function summarise(id){
+  const st = attempt(id);
+  if(!st) return {badge:'Not started', cls:'', meta:'65 questions · 100 marks · 180 minutes', pct:0};
+  const answered = Object.values(st.ans||{}).filter(a=>a!=null && (!Array.isArray(a)||a.length) && String(a).trim()!=='').length;
+  if(st.submitted){
+    const s = typeof st.score==='number' ? st.score : null;
+    return {
+      badge: s==null ? 'Submitted' : `${Math.round(s*100)/100} / 100`,
+      cls:'done',
+      meta: `Submitted · ${answered} of 65 attempted` + (st.usedSeconds!=null?` · ${fmtClock(st.usedSeconds)} used`:''),
+      pct: s==null?100:Math.max(0,Math.min(100,s))
     };
-    k.appendChild(b);
-  });
-})();
-
-document.addEventListener('keydown', e=>{
-  if($('exam').classList.contains('hide')) return;
-  if(e.target.tagName==='INPUT'){
-    if(e.key==='Enter'){ commitNat(); renderQ(Math.min(65,S.current+1)); }
-    return;
   }
-  const q=Q[S.current-1];
-  const L=e.key.toUpperCase();
-  if(LETTERS.includes(L) && q.type!=='NAT'){ pick(q,L); e.preventDefault(); }
-  else if(e.key==='ArrowRight'){ renderQ(Math.min(65,S.current+1)); }
-  else if(e.key==='ArrowLeft'){ renderQ(Math.max(1,S.current-1)); }
-  else if(e.key==='Enter'){ renderQ(Math.min(65,S.current+1)); }
-});
-
-/* ---------------- submit ---------------- */
-$('submitBtn').onclick = ()=>{
-  commitNat();
-  const answered = Q.filter(q=>isAnswered(q,S.ans[q.n])).length;
-  const marked = Q.filter(q=>['mk','am'].includes(S.status[q.n])).length;
-  const ov=document.createElement('div'); ov.className='overlay';
-  ov.innerHTML = `<div class="modal">
-    <h3>Submit the test?</h3>
-    <p>You cannot return to the paper after submitting.</p>
-    <div class="mstats">
-      <div><span>Answered</span><b>${answered}</b></div>
-      <div><span>Unanswered</span><b>${65-answered}</b></div>
-      <div><span>Marked for review</span><b>${marked}</b></div>
-      <div><span>Time left</span><b>${fmtClock(S.remaining)}</b></div>
-    </div>
-    <div class="row">
-      <button class="btn warn" id="mYes">Submit</button>
-      <button class="btn ghost" id="mNo">Keep working</button>
-    </div>
-  </div>`;
-  document.body.appendChild(ov);
-  ov.querySelector('#mNo').onclick=()=>ov.remove();
-  ov.querySelector('#mYes').onclick=()=>{ ov.remove(); doSubmit(false); };
-};
-
-function doSubmit(auto){
-  commitNat();
-  S.submitted = true; save();
-  clearInterval(timerId);
-  document.body.style.overflow='';
-  $('exam').classList.add('hide');
-  renderResult(auto);
-  $('result').classList.remove('hide');
-  window.scrollTo(0,0);
-}
-
-/* ---------------- results ---------------- */
-let revFilter='all';
-
-function renderResult(auto){
-  const {rows,total} = gradeAll();
-  const correct = rows.filter(r=>r.verdict==='correct');
-  const wrong   = rows.filter(r=>r.verdict==='wrong');
-  const skipped = rows.filter(r=>r.verdict==='skip');
-  const positive = correct.reduce((s,r)=>s+r.got,0);
-  const negative = rows.reduce((s,r)=>s+Math.min(0,r.got),0);
-  const used = TOTAL_SECONDS - S.remaining;
-
-  const byGroup = (name, test)=>{
-    const rs = rows.filter(r=>test(r.q));
-    const max = rs.reduce((s,r)=>s+r.q.marks,0);
-    const got = rs.reduce((s,r)=>s+r.got,0);
-    return {name, n:rs.length, max, got,
-      c:rs.filter(r=>r.verdict==='correct').length,
-      w:rs.filter(r=>r.verdict==='wrong').length,
-      s:rs.filter(r=>r.verdict==='skip').length};
+  return {
+    badge:'In progress', cls:'live',
+    meta:`${answered} of 65 answered · ${fmtClock(st.remaining ?? TOTAL_SECONDS)} left`,
+    pct: answered/65*100
   };
-  const groups = [
-    byGroup('General Aptitude', q=>q.sec==='GA'),
-    byGroup('Technical (CS)',   q=>q.sec==='CS'),
-  ];
-  const types = [
-    byGroup('MCQ', q=>q.type==='MCQ'),
-    byGroup('MSQ', q=>q.type==='MSQ'),
-    byGroup('NAT', q=>q.type==='NAT'),
-  ];
-  const grow = g=>`<tr><td>${g.name}</td><td>${g.n}</td><td class="pos">${g.c}</td><td class="neg">${g.w}</td><td>${g.s}</td><td><b>${round2(g.got)}</b> / ${g.max}</td></tr>`;
-
-  $('result').innerHTML = `
-    <div class="brand">Bibliotheca · Result</div>
-    <h1 style="margin-bottom:18px">GATE 2026 CS1 — Scorecard</h1>
-    ${auto?'<p class="sub" style="color:var(--red)">Time expired — the test was submitted automatically.</p>':''}
-
-    <div class="scorecard">
-      <div class="lbl">Total score</div>
-      <div><span class="big">${round2(total)}</span> <span class="of">/ 100</span></div>
-      <div class="meta">
-        <div><span>Positive</span><b>+${round2(positive)}</b></div>
-        <div><span>Negative</span><b>${round2(negative)}</b></div>
-        <div><span>Attempted</span><b>${65-skipped.length} / 65</b></div>
-        <div><span>Accuracy</span><b>${(65-skipped.length)?Math.round(correct.length/(65-skipped.length)*100):0}%</b></div>
-        <div><span>Time used</span><b>${fmtClock(used)}</b></div>
-      </div>
-    </div>
-
-    <div class="stats">
-      <div class="stat g"><b>${correct.length}</b><span>Correct</span></div>
-      <div class="stat r"><b>${wrong.length}</b><span>Wrong</span></div>
-      <div class="stat m"><b>${skipped.length}</b><span>Unattempted</span></div>
-      <div class="stat"><b>${round2(positive)}</b><span>Marks earned</span></div>
-      <div class="stat r"><b>${round2(negative)}</b><span>Penalty</span></div>
-    </div>
-
-    <h2 class="sec">By section</h2>
-    <div class="card" style="padding:6px 18px">
-      <table class="brk">
-        <thead><tr><th>Section</th><th>Qs</th><th>Correct</th><th>Wrong</th><th>Skipped</th><th>Score</th></tr></thead>
-        <tbody>${groups.map(grow).join('')}</tbody>
-        <tfoot><tr><td>Total</td><td>65</td><td>${correct.length}</td><td>${wrong.length}</td><td>${skipped.length}</td><td>${round2(total)} / 100</td></tr></tfoot>
-      </table>
-    </div>
-
-    <h2 class="sec">By question type</h2>
-    <div class="card" style="padding:6px 18px">
-      <table class="brk">
-        <thead><tr><th>Type</th><th>Qs</th><th>Correct</th><th>Wrong</th><th>Skipped</th><th>Score</th></tr></thead>
-        <tbody>${types.map(grow).join('')}</tbody>
-      </table>
-    </div>
-
-    <h2 class="sec">Question review</h2>
-    <div class="filters" id="filters">
-      <button data-f="all"     aria-pressed="true">All 65</button>
-      <button data-f="wrong"   aria-pressed="false">Wrong (${wrong.length})</button>
-      <button data-f="skip"    aria-pressed="false">Unattempted (${skipped.length})</button>
-      <button data-f="correct" aria-pressed="false">Correct (${correct.length})</button>
-    </div>
-    <div id="revlist"></div>
-
-    <div class="row" style="margin-top:26px">
-      <button class="btn" id="retakeBtn">Retake test</button>
-      <button class="btn ghost" id="backBtn">Back to start</button>
-    </div>
-    <p class="hint" style="margin-top:18px">
-      Graded against the official GATE 2026 CS1 (Session 3) answer key published by IIT Guwahati.
-    </p>`;
-
-  const drawRev = ()=>{
-    const list = rows.filter(r=> revFilter==='all' || r.verdict===revFilter);
-    $('revlist').innerHTML = list.map(r=>`
-      <details class="rev">
-        <summary>
-          <span class="rq">Q.${r.q.n}</span>
-          <span class="verdict v-${r.verdict}">${r.verdict==='skip'?'Not attempted':r.verdict}</span>
-          <span class="pill t-${r.q.type}">${r.q.type}</span>
-          <span class="yours">your answer: <b>${r.yours}</b> &nbsp;·&nbsp; key: <b>${r.key}</b></span>
-          <span class="got" style="color:${r.got>0?'var(--green)':r.got<0?'var(--red)':'var(--muted)'}">${r.got===0?'0':fmtMark(r.got)}</span>
-        </summary>
-        <div class="panel"><img loading="lazy" src="q/q${pad2(r.q.n)}.webp" alt="Question ${r.q.n}"></div>
-      </details>`).join('') || '<p class="sub">Nothing here.</p>';
-  };
-  drawRev();
-  $('filters').onclick = e=>{
-    const b=e.target.closest('button[data-f]'); if(!b) return;
-    revFilter=b.dataset.f;
-    [...$('filters').children].forEach(x=>x.setAttribute('aria-pressed', String(x===b)));
-    drawRev();
-  };
-  $('retakeBtn').onclick = ()=>{ localStorage.removeItem(KEY); startExam(true); };
-  $('backBtn').onclick = ()=>{ $('result').classList.add('hide'); $('start').classList.remove('hide'); refreshResume(); window.scrollTo(0,0); };
 }
-
-/* ---------------- boot ---------------- */
-function refreshResume(){
-  const st = load();
-  if(st && !st.submitted){
-    const done = Q.filter(q=>isAnswered(q, st.ans[q.n])).length;
-    $('resumeBtn').classList.remove('hide');
-    $('resumeNote').textContent = `${done} answered · ${fmtClock(st.remaining)} left`;
-    $('startBtn').textContent = 'Start fresh attempt';
-  } else {
-    $('resumeBtn').classList.add('hide');
-    $('resumeNote').textContent = '';
-    $('startBtn').textContent = 'Start test';
-  }
-}
-refreshResume();
+document.getElementById('papers').innerHTML = PAPERS.map(p=>{
+  const s = summarise(p.id);
+  return `<a class="paper" href="test.html?p=${p.id}">
+    <div class="ptop">
+      <span class="pname">${p.title} (${p.name})</span>
+      <span class="psess">Session ${p.session}</span>
+      <span class="badge ${s.cls}">${s.badge}</span>
+    </div>
+    <div class="pmeta">${s.meta}</div>
+    ${s.pct?`<div class="bar"><i style="width:${s.pct}%"></i></div>`:''}
+  </a>`;
+}).join('');
 </script>
 
 <script>
