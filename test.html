@@ -181,6 +181,25 @@ table.brk tfoot td{font-weight:700;border-top:2px solid var(--line);border-botto
 .rev .panel img{max-width:100%;display:block;margin:14px auto 0;border:1px solid var(--line);border-radius:8px}
 h2.sec{font-size:13px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:30px 0 12px}
 
+/* ---------- explanation ---------- */
+.expl{margin-top:16px;padding-top:14px;border-top:1px dashed var(--line);font-size:14.5px;line-height:1.62}
+.expl .etop{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.expl .subj,.expl .topic{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:999px}
+.expl .subj{background:#eaf1fb;color:var(--blue);border:1px solid #b9cbe8}
+.expl .topic{background:#f4f6fa;color:var(--muted);border:1px solid var(--line)}
+.expl .insight{background:#f7f9fc;border-left:3px solid var(--accent);padding:10px 14px;margin:0 0 14px;border-radius:0 8px 8px 0;color:#243044}
+.expl p{margin:0 0 11px}
+.expl ul{margin:0 0 11px;padding-left:22px}
+.expl li{margin:.3em 0}
+.expl code{background:#f1f3f7;border:1px solid var(--line);border-radius:5px;padding:1px 5px;font:13px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace}
+.expl strong{font-weight:650}
+.expl h4{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:16px 0 8px}
+.expl .dis li b{color:var(--red)}
+.expl .pit{background:#fdf6ec;border:1px solid #f0dcc0;border-radius:8px;padding:9px 13px;margin-top:12px;font-size:13.5px}
+.expl .pit b{color:var(--amber,#a16207)}
+.noexpl{color:var(--muted);font-size:13.5px;margin-top:14px;font-style:italic}
+.rev .panel img{margin-bottom:2px}
+
 /* ---------- modal ---------- */
 .overlay{position:fixed;inset:0;background:rgba(12,18,28,.55);display:flex;align-items:center;justify-content:center;padding:20px;z-index:50}
 .modal{background:var(--panel);border-radius:16px;max-width:460px;width:100%;padding:26px 28px;box-shadow:0 20px 60px rgba(0,0,0,.28)}
@@ -778,6 +797,43 @@ function doSubmit(auto){
   window.scrollTo(0,0);
 }
 
+/* ---------- explanations ---------- */
+let EXPL=null, explTried=false;
+function loadExpl(done){
+  if(EXPL || explTried) return done();
+  explTried = true;
+  const s=document.createElement('script');
+  s.src='expl/'+PID+'.js';                 // <script> works under file:// where fetch() does not
+  s.onload=()=>{ EXPL = window.EXPL || null; done(); };
+  s.onerror=()=>done();
+  document.head.appendChild(s);
+}
+const esc = s => String(s).replace(/[&<>]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const inl = s => s.replace(/`([^`]+)`/g,'<code>$1</code>')
+  .replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>')
+  .replace(/\*([^*\n]+)\*/g,'<em>$1</em>');
+function md(src){
+  return esc(src||'').split(/\n{2,}/).map(b=>{
+    const ls=b.split('\n').filter(l=>l.trim()!=='');
+    if(!ls.length) return '';
+    if(ls.every(l=>/^\s*-\s+/.test(l)))
+      return '<ul>'+ls.map(l=>'<li>'+inl(l.replace(/^\s*-\s+/,''))+'</li>').join('')+'</ul>';
+    return '<p>'+inl(ls.join('<br>'))+'</p>';
+  }).join('');
+}
+function explHtml(n){
+  const e = EXPL && EXPL[n];
+  if(!e) return '<p class="noexpl">No written explanation for this question yet.</p>';
+  const dis = (e.distractors||[]).filter(d=>d && d.option && d.why);
+  return `<div class="expl">
+    <div class="etop">${e.subject?`<span class="subj">${esc(e.subject)}</span>`:''}${e.topic?`<span class="topic">${esc(e.topic)}</span>`:''}</div>
+    ${e.insight?`<p class="insight">${inl(esc(e.insight))}</p>`:''}
+    ${md(e.solution)}
+    ${dis.length?`<h4>Why the other options fail</h4><div class="dis"><ul>${dis.map(d=>`<li><b>(${esc(d.option)})</b> ${inl(esc(d.why))}</li>`).join('')}</ul></div>`:''}
+    ${e.pitfall?`<p class="pit"><b>Common slip:</b> ${inl(esc(e.pitfall))}</p>`:''}
+  </div>`;
+}
+
 /* ---------------- results ---------------- */
 let revFilter='all';
 
@@ -880,10 +936,11 @@ function renderResult(auto){
           <span class="yours">your answer: <b>${r.yours}</b> &nbsp;·&nbsp; key: <b>${r.key}</b></span>
           <span class="got" style="color:${r.got>0?'var(--green)':r.got<0?'var(--red)':'var(--muted)'}">${r.got===0?'0':fmtMark(r.got)}</span>
         </summary>
-        <div class="panel"><img loading="lazy" src="q/${PID}/q${pad2(r.q.n)}.webp" alt="Question ${r.q.n}"></div>
+        <div class="panel"><img loading="lazy" src="q/${PID}/q${pad2(r.q.n)}.webp" alt="Question ${r.q.n}">${explHtml(r.q.n)}</div>
       </details>`).join('') || '<p class="sub">Nothing here.</p>';
   };
   drawRev();
+  loadExpl(drawRev);
   $('filters').onclick = e=>{
     const b=e.target.closest('button[data-f]'); if(!b) return;
     revFilter=b.dataset.f;

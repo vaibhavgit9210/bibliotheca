@@ -27,6 +27,12 @@ Questions are rendered straight from the official IIT Guwahati PDFs, so every fi
 
 Both papers split 15 marks General Aptitude / 85 marks Technical.
 
+## Worked solutions
+
+Every CS1 question has a written solution shown after you submit: the key insight, the full derivation, why each wrong option is wrong, and the common slip. They are original write-ups checked against the official key — GATE publishes only the key itself, never reasoning.
+
+CS2 does not have them yet.
+
 ## Using it
 
 Pick a paper from the landing page, answer with the on-screen options (or keys **A**–**D**), type NAT answers into the keypad, and submit. Progress is saved per paper in `localStorage`, so you can close the tab and resume; the timer auto-submits at 00:00:00.
@@ -42,6 +48,7 @@ index.html           paper picker, with per-paper progress
 test.html            the exam app — ?p=cs1 | ?p=cs2
 q/<paper>/qNN.webp   65 question images per paper
 exam-<paper>.json    machine-readable answer key
+expl/cs1.js          worked solutions, loaded after you submit
 build.py             regenerates images + keys from the official PDFs
 ```
 

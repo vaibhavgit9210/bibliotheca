@@ -2,16 +2,16 @@
 
 Repo `vaibhavgit9210/bibliotheca`. Full-length GATE papers as browser mock tests, graded against the official answer keys.
 
-> ⚠️ **Not deployed. Do not push without asking.** Commit locally only — that was an explicit instruction on 9 Aug 2026. The CS1-only version was live at https://vaibhavkumar.is-a.dev/bibliotheca/ before the two-paper restructure, so the remote is now *behind* local. When a push is authorised, push **both** `main` and `main:gh-pages`.
+> **Live** at https://vaibhavkumar.is-a.dev/bibliotheca/ — Pages from `gh-pages`, so push **both** `main` and `main:gh-pages`. Pushed 10 Aug 2026 after an explicit go-ahead; the earlier local-only instruction is discharged.
 
 ## Mock roster — what's built, what's solved
 
 Update the Status column as you sit each paper, so the next batch doesn't repeat one.
 
-| Mock | Session | Source | Status | Score | Attempted |
-|---|---|---|---|---|---|
-| GATE 2026 CS1 | 3 | official paper + key | **built · unsolved** | — | — |
-| GATE 2026 CS2 | 4 | official paper + key | **built · unsolved** | — | — |
+| Mock | Session | Source | Explanations | Status | Score | Attempted |
+|---|---|---|---|---|---|---|
+| GATE 2026 CS1 | 3 | official paper + key | ✅ all 65 | **built · unsolved** | — | — |
+| GATE 2026 CS2 | 4 | official paper + key | ✖ none yet | **built · unsolved** | — | — |
 
 ### Deliberately not built (checked 9 Aug 2026 — don't re-research these)
 
@@ -23,6 +23,27 @@ Update the Status column as you sit each paper, so the next batch doesn't repeat
 
 Plan context lives in `~/Documents/personal/job/padhai/` (private repo): `gov-exams-study-plan.md` §3 is the sequencing calendar. The only live calendar item as of Aug 2026 is **GATE 2027 registration, 14 Aug – 21 Sep 2026**.
 
+## Worked solutions (CS1 only, so far)
+
+`expl/cs1.js` defines `window.EXPL` keyed by question number — the fields the UI renders (`subject`, `topic`, `insight`, `solution`, `distractors`, `pitfall`). `expl/cs1.full.json` keeps the full records including `derived`, `matches_key` and `confidence` for provenance. Regenerate `cs1.js` from the full JSON; don't hand-edit the `.js`.
+
+Loaded via an injected `<script src>`, **not** `fetch` — script tags work under `file://`, so local screenshot verification keeps working. It is fetched lazily when the scorecard renders, so the 157 KB never touches the exam itself. If the file is missing the review card degrades to "No written explanation for this question yet."
+
+**Writing rules** (keep any new batch consistent): light markdown only — blank line between paragraphs, `- ` bullets, `**bold**`, `*italic*`, `` `code` ``. **No LaTeX** and no MathJax on the page; write maths in plain text and Unicode (`2^32`, `O(n log n)`, `Θ(n²)`, `≤`, `∈`, `⌈x⌉`). The packaging step asserts no `\frac` or `$` leaked.
+
+**How these were produced.** Authored by 11 parallel agents (6 questions each), each required to derive the answer *before* reading the official key — reading the key first just yields confident-sounding justification of whatever it says. Every question whose derivation disagreed with the key, or that came back low-confidence, was re-derived by a fresh agent blind to the first pass. All 65 stated answers were then machine-checked against `exam-cs1.json`.
+
+- 64 are `confidence: high`. **Q7 is `medium`** — an orthographic-projection question where the elimination is inherently visual; the write-up gives the projection method rather than pretending to a voxel-exact derivation.
+- **Q7–Q12 were written by hand.** That agent stalled on all 6 attempts and the workflow returned them unwritten; its report suggested solving them cold, which would have shipped a contiguous six-question gap.
+
+**Do not trust outside solution sites on these three.** Cross-checking against a scraped coaching PDF (Zollege/Collegedunia) disagreed on Q28, Q40 and Q49; independent re-derivation confirmed the official key every time and the third party was wrong in all three:
+- **Q28** — correct is **C only**. LL(1) needs left-factoring, does *not* need left recursion, does *not* backtrack, and is strictly weaker than SLR(1).
+- **Q40** — correct is **D (5)**; the third party says 10, which assumes level-order construction. 5's ancestor chain is 8 → 4 → 6, so three keys must precede it (brute-force verified).
+- **Q49** — correct is **AD**. The third party invokes "the smallest edge of every cycle is in every MST", which is not a theorem — minimum-weight is a *cut* property, not a cycle property.
+
+Those PDFs are unusable as a source generally: options are shuffled relative to the official paper, stems are paraphrased (CS1 Q.13 drops a constraint), MSQs are answered with a single option, and the CS2 file has no solutions at all. They earned their keep only as a cross-check that flagged which questions deserved a second look.
+
+
 ## Layout
 
 ```
@@ -30,6 +51,8 @@ index.html        hub — paper picker, reads each attempt's status from localSt
 test.html         the exam app for every paper; ?p=cs1|cs2 selects one
 q/<paper>/qNN.webp   65 question images per paper
 exam-<paper>.json    machine-readable key (reference; runtime uses the inlined copy)
+expl/<paper>.js      worked solutions, window.EXPL, lazy-loaded after submit
+expl/<paper>.full.json  same plus provenance (derived / matches_key / confidence)
 build.py          regenerates images + key JSON from the official PDFs
 ```
 
