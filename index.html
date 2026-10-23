@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#eef1f6">
 <title>Bibliotheca — GATE mock tests</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Crect%20width%3D%2764%27%20height%3D%2764%27%20rx%3D%2714%27%20fill%3D%27%23060a13%27%2F%3E%3Ctext%20x%3D%2732%27%20y%3D%2746%27%20font-size%3D%2738%27%20text-anchor%3D%27middle%27%3E%F0%9F%93%9A%3C%2Ftext%3E%3C%2Fsvg%3E">
 <meta name="description" content="Full-length GATE 2026 Computer Science mock tests with official answer keys and the real GATE marking scheme.">
@@ -12,26 +14,38 @@
   --blue:#1b4b96; --blue-d:#14396f; --accent:#0b7285;
   --green:#12805c; --red:#c0392b; --amber:#a16207;
   --shadow:0 1px 2px rgba(16,24,40,.06),0 4px 14px rgba(16,24,40,.07);
+  /* glass, the macOS 26+ material: translucent fill, blur, a bright top rim, a soft drop */
+  --glass:rgba(255,255,255,.62); --glass-solid:rgba(250,250,252,.9);
+  --blur:blur(24px) saturate(180%);
+  --rim:inset 0 .5px 0 rgba(255,255,255,.95),inset 0 0 0 .5px rgba(0,0,0,.07);
+  --drop:0 10px 30px rgba(16,24,40,.08),0 1px 3px rgba(16,24,40,.07);
 }
 *{box-sizing:border-box}
 html,body{margin:0}
 body{
-  background:var(--bg);color:var(--ink);
-  font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-  -webkit-text-size-adjust:100%;
+  /* a faint wash of the site's own blue and teal, so the glass cards have something to sit on */
+  background:
+    radial-gradient(900px 560px at 10% -140px,rgba(27,75,150,.11),transparent 70%),
+    radial-gradient(820px 520px at 94% -100px,rgba(11,114,133,.10),transparent 70%),
+    var(--bg);
+  color:var(--ink);
+  font:15px/1.55 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  -webkit-text-size-adjust:100%; -webkit-font-smoothing:antialiased; -webkit-tap-highlight-color:transparent;
 }
-.wrap{max-width:820px;margin:0 auto;padding:44px 20px 90px}
+.wrap{max-width:820px;margin:0 auto;padding:44px max(20px,env(safe-area-inset-right)) max(90px,env(safe-area-inset-bottom)) max(20px,env(safe-area-inset-left))}
 .brand{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:700}
 h1{font-size:31px;line-height:1.2;margin:.35em 0 .2em;letter-spacing:-.015em}
 .sub{color:var(--muted);margin:0 0 30px;max-width:62ch}
 h2.sec{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:34px 0 12px;font-weight:700}
 
 a.paper{
-  display:block;text-decoration:none;color:inherit;background:var(--panel);
-  border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:12px;
-  box-shadow:var(--shadow);transition:border-color .15s,transform .15s
+  display:block;text-decoration:none;color:inherit;border-radius:20px;padding:20px 22px;margin-bottom:12px;
+  background:var(--glass);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);
+  box-shadow:var(--rim),var(--drop);transition:box-shadow .2s ease-out,transform .2s ease-out
 }
-a.paper:hover{border-color:var(--blue);transform:translateY(-1px)}
+a.paper:hover{transform:translateY(-2px);box-shadow:var(--rim),inset 0 0 0 1px rgba(27,75,150,.45),0 16px 40px rgba(16,24,40,.12)}
+a.paper:active{transform:scale(.99)}
+a.paper:focus-visible{outline:none;box-shadow:var(--rim),inset 0 0 0 1px var(--blue),0 0 0 4px rgba(27,75,150,.22)}
 .ptop{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
 .pname{font-size:18px;font-weight:700;letter-spacing:-.01em}
 .psess{font-size:12px;color:var(--muted)}
@@ -43,12 +57,12 @@ a.paper:hover{border-color:var(--blue);transform:translateY(-1px)}
 .badge.live{background:#fef6e7;color:var(--amber)}
 .pmeta{color:var(--muted);font-size:13.5px;margin-top:8px}
 .pmeta b{color:var(--ink);font-variant-numeric:tabular-nums}
-.bar{height:6px;border-radius:999px;background:#e7ebf1;margin-top:12px;overflow:hidden}
+.bar{height:6px;border-radius:999px;background:rgba(16,24,40,.07);margin-top:12px;overflow:hidden}
 .bar i{display:block;height:100%;background:var(--green);border-radius:999px}
 
-.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:var(--shadow)}
+.card{background:var(--panel);border-radius:20px;padding:20px 22px;box-shadow:var(--rim),var(--shadow)}
 table.scheme{width:100%;border-collapse:collapse;font-size:14px}
-table.scheme th,table.scheme td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left}
+table.scheme th,table.scheme td{padding:9px 10px;border-bottom:.5px solid var(--line);text-align:left}
 table.scheme th{font-weight:600;color:var(--muted);font-size:11.5px;text-transform:uppercase;letter-spacing:.05em}
 table.scheme tr:last-child td{border-bottom:0}
 table.scheme td:first-child{font-weight:600}
@@ -58,6 +72,9 @@ ul.notes li{margin:.35em 0}
 ul.notes b{color:var(--ink)}
 .foot{color:var(--muted);font-size:12.5px;margin-top:30px}
 .foot a{color:var(--accent)}
+/* Reduce Transparency (System Settings > Accessibility > Display): solid cards, no blur */
+@media (prefers-reduced-transparency:reduce){a.paper{background:var(--panel);-webkit-backdrop-filter:none;backdrop-filter:none}}
+@media (prefers-reduced-motion:reduce){a.paper,a.paper:hover,a.paper:active{transition:none;transform:none}}
 @media (max-width:600px){ .wrap{padding-top:28px} h1{font-size:25px} .badge{margin-left:0} }
 </style>
 </head>
