@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="light">
 <meta name="theme-color" content="#eef1f6">
-<title>GATE 2026 — Mock Test</title>
+<title>GATE 2026 · Mock Test</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Crect%20width%3D%2764%27%20height%3D%2764%27%20rx%3D%2714%27%20fill%3D%27%23060a13%27%2F%3E%3Ctext%20x%3D%2732%27%20y%3D%2746%27%20font-size%3D%2738%27%20text-anchor%3D%27middle%27%3E%F0%9F%93%9A%3C%2Ftext%3E%3C%2Fsvg%3E">
 <meta name="description" content="Full-length GATE 2026 Computer Science (CS1) mock test with official answer key and GATE marking scheme.">
 <style>
@@ -290,8 +290,8 @@ h2.sec{font-size:13px;text-transform:uppercase;letter-spacing:.07em;color:var(--
       </tbody>
     </table>
     <ul class="notes" style="margin-top:14px">
-      <li><b>MSQ</b> has no partial credit — you must select <b>every</b> correct option and <b>no</b> incorrect one.</li>
-      <li><b>NAT</b> answers are typed in. Graded against the official accepted range (e.g. 4.24–4.26).</li>
+      <li><b>MSQ</b> has no partial credit: you must select <b>every</b> correct option and <b>no</b> incorrect one.</li>
+      <li><b>NAT</b> answers are typed in. Graded against the official accepted range (e.g. 4.24-4.26).</li>
     </ul>
   </div>
 
@@ -300,9 +300,9 @@ h2.sec{font-size:13px;text-transform:uppercase;letter-spacing:.07em;color:var(--
     <ul class="notes">
       <li>Questions are the original PDF renderings, so every figure, table and formula is exactly as it appeared in the exam.</li>
       <li>Use <b>Save &amp; Next</b>, <b>Mark for Review</b> and the question palette, just like the real CBT interface.</li>
-      <li>Your progress is saved in this browser continuously — close the tab and resume where you left off.</li>
+      <li>Your progress is saved in this browser continuously: close the tab and resume where you left off.</li>
       <li>The timer auto-submits at 00:00:00. You can submit early at any point.</li>
-      <li>Keyboard: <b>A–D</b> to choose, <b>←/→</b> to move, <b>Enter</b> to save &amp; next.</li>
+      <li>Keyboard: <b>A-D</b> to choose, <b>←/→</b> to move, <b>Enter</b> to save &amp; next.</li>
     </ul>
   </div>
 
@@ -562,7 +562,7 @@ function gradeOne(q, a){
     ? (q.ans[0]===q.ans[1] ? String(q.ans[0]) : q.ans[0]+' to '+q.ans[1])
     : q.ans.split('').join(', ');
 
-  if(!isAnswered(q,a)) return {verdict:'skip', got:0, yours:'—', key:keyStr};
+  if(!isAnswered(q,a)) return {verdict:'skip', got:0, yours:'-', key:keyStr};
 
   if(q.type==='NAT'){
     const v = parseFloat(String(a).trim());
@@ -697,7 +697,7 @@ function renderAnswer(q){
     opts.classList.add('hide'); nat.classList.remove('hide');
     $('ansLabel').textContent='Enter your answer';
     $('natInput').value = a==null?'':a;
-    $('hint').textContent='Numeric answer — decimals allowed. No negative marking.';
+    $('hint').textContent='Numeric answer: decimals allowed. No negative marking.';
   } else {
     opts.classList.remove('hide'); nat.classList.add('hide');
     $('ansLabel').textContent = q.type==='MSQ' ? 'Select one or more options' : 'Select one option';
@@ -904,8 +904,8 @@ function renderResult(auto){
 
   $('result').innerHTML = `
     <div class="brand">Bibliotheca · Result</div>
-    <h1 style="margin-bottom:18px">GATE 2026 ${PID.toUpperCase()} — Scorecard</h1>
-    ${auto?'<p class="sub" style="color:var(--red)">Time expired — the test was submitted automatically.</p>':''}
+    <h1 style="margin-bottom:18px">GATE 2026 ${PID.toUpperCase()} · Scorecard</h1>
+    ${auto?'<p class="sub" style="color:var(--red)">Time expired: the test was submitted automatically.</p>':''}
 
     <div class="scorecard">
       <div class="lbl">Total score</div>
@@ -1002,9 +1002,9 @@ function refreshResume(){
   }
 }
 $('ttlPaper').textContent = PID.toUpperCase();
-$('startTitle').innerHTML = 'GATE 2026 — ' + PAPER.title;
+$('startTitle').innerHTML = 'GATE 2026 · ' + PAPER.title;
 $('startSub').textContent = `The full official paper, Session ${PAPER.session}. Answers are graded against the official IIT Guwahati answer key using the real GATE marking scheme.`;
-document.title = `GATE 2026 ${PID.toUpperCase()} — Mock Test`;
+document.title = `GATE 2026 ${PID.toUpperCase()} · Mock Test`;
 refreshResume();
 </script>
 
